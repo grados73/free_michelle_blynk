@@ -1,9 +1,6 @@
 /*************************************************************
-
-  Blynk using a LED widget on your phone!
-
-  App project setup:
-    LED widget on V1
+* author:    grados73
+* project:   free_michelle_blynk
  *************************************************************/
 
 // Template ID, Device Name and Auth Token are provided by the Blynk.Cloud
@@ -12,10 +9,8 @@
 #define BLYNK_DEVICE_NAME           "GRAD Quickstart Device"
 #define BLYNK_AUTH_TOKEN            "6-UIFG5EkFyAbtLATzif3RagR20M8ey2"
 
-
 // Comment this out to disable prints and save space
 #define BLYNK_PRINT Serial
-
 
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
@@ -31,38 +26,19 @@ WidgetLED led1(V1);
 
 BlynkTimer timer;
 
-// Real LED Definition
+// Real - Build In BLUE LED Declaration
 #define LED 2
-
-
-// V1 LED Widget is blinking
-void blinkLedWidget()
-{
-  if (led1.getValue()) {
-    led1.off();
-    digitalWrite(LED, LOW);
-    Serial.println("LED on V1: off");
-  } else {
-    led1.on();
-    digitalWrite(LED, HIGH);
-    Serial.println("LED on V1: on");
-  }
-}
 
 
 void setup()
 {
-  // Debug console
+  //  Serial Init
   Serial.begin(115200);
 
+  //  Initialization of Blynk Cloud access
   Blynk.begin(auth, ssid, pass);
-  // You can also specify server:
-  //Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);
-  //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
-
+  //  Real - Build In BLUE LED Declaration
   pinMode(LED, OUTPUT);
-
-  timer.setInterval(1000L, blinkLedWidget);
 }
 
 void loop()
