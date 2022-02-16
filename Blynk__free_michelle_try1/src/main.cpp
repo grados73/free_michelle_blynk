@@ -49,6 +49,7 @@ void blinkLedWidget()
   }
 }
 
+
 void setup()
 {
   // Debug console
@@ -60,10 +61,8 @@ void setup()
   //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
 
   pinMode(LED, OUTPUT);
-  
-  timer.setInterval(1000L, blinkLedWidget);
 
-  
+  timer.setInterval(1000L, blinkLedWidget);
 }
 
 void loop()
