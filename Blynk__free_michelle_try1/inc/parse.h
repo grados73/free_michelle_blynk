@@ -1,12 +1,12 @@
-#ifndef PARSE_h
-#define PARSE_h
+#pragma once
+
+#include <ESP8266WiFi.h>
 
 class ParseClass {
 
 public:
  int RcvCmd;
 
- void Parse();
+ void Parse(String command);
 };
 
-#endif

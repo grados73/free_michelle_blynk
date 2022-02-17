@@ -4,7 +4,7 @@
  *************************************************************/
 
 /*************************************************************
- ********* PART OF CODE NEEDED TO BLYNK INIT
+ ********* PART OF CODE NEEDED TO BLYNK INIT *****************
  *************************************************************/
 // Template ID, Device Name and Auth Token are provided by the Blynk.Cloud
 // See the Device Info tab, or Template settings
@@ -30,6 +30,8 @@ char pass[] = "gradowscy6";
 WidgetLED led1(V1);
 
 BlynkTimer timer;
+
+#define DEBUGING_MODE 1
 
 // Real - Build In BLUE LED Declaration
 #define LED 2
@@ -63,7 +65,7 @@ void loop()
   timer.run();
   if (stringComplete) {
     // PARSE COMMAND FUNCTION 
-    UARTuCParse.Parse();
+    UARTuCParse.Parse(inputString);
     // clear the string:
     inputString = "";
     stringComplete = false;
