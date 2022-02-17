@@ -36,7 +36,10 @@ void setup()
   Serial.begin(115200);
 
   //  Initialization of Blynk Cloud access
+  Serial.print("BLYNKINITSTART\n");
   Blynk.begin(auth, ssid, pass);
+  //TODO! ADD implementation of possibility to change WIFI ssid or pass to connect!
+  Serial.print("BLYNKINITSUCCESS\n");
   //  Real - Build In BLUE LED Declaration
   pinMode(LED, OUTPUT);
 }
