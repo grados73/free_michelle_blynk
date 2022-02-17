@@ -37,8 +37,9 @@ BlynkTimer timer;
 #define LED 2
 
 // Variables to Serial comunication
-String inputString = "";          // a String to hold incoming data
-bool stringComplete = false;      // whether the string is complete
+String inputString = "";                 // a String to hold incoming data
+String * WskInputString = &inputString;  // Pointer on String holding incoming data
+bool stringComplete = false;             // whether the string is complete
 
 // Class with objects and methods to Parse Command from uC
 ParseClass UARTuCParse;
@@ -65,7 +66,7 @@ void loop()
   timer.run();
   if (stringComplete) {
     // PARSE COMMAND FUNCTION 
-    UARTuCParse.Parse(inputString);
+    UARTuCParse.Parse(WskInputString);
     // clear the string:
     inputString = "";
     stringComplete = false;
