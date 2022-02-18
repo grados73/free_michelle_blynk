@@ -2,11 +2,16 @@
 
 using namespace std;
 
+typedef uint8_t TypeOfParsingData;
+
 void UART_ParseLED();
 
-void ParseClass::Parse(String * command)
+extern ParseClass UARTuCParse;
+
+uint8_t ParseClass::Parse(String * command)
 {
 
+    uint8_t TypeOfCommand = 0;
     String NewComand = *command;
 
     //Information about current Temperature inside tank
@@ -18,7 +23,8 @@ void ParseClass::Parse(String * command)
         {
             String STempI = NewComand.substring(PositionOfEqual+1);
             float FTempI = STempI.toFloat();
-            FTempI = FTempI; //To delete warning
+            UARTuCParse.TempIns = FTempI;
+            TypeOfCommand = PARSING_TEMPWEW;
         }
     }
     //Information about current Temperature outside the tank
@@ -30,7 +36,8 @@ void ParseClass::Parse(String * command)
         {
             String STempO = NewComand.substring(PositionOfEqual+1);
             float FTempO = STempO.toFloat();
-            FTempO = FTempO; //To delete warning
+            UARTuCParse.TempOut = FTempO;
+            TypeOfCommand = PARSING_TEMPZEW;
         }
     }
     //Information about current Pressure
@@ -42,7 +49,8 @@ void ParseClass::Parse(String * command)
         {
             String SPres = NewComand.substring(PositionOfEqual+1);
             float FPres = SPres.toFloat();
-            FPres = FPres; //To delete warning
+            UARTuCParse.Press = FPres;
+            TypeOfCommand = PARSING_PRESS;
         }
     }
     //Command to Turn Relay ON
@@ -53,8 +61,9 @@ void ParseClass::Parse(String * command)
         if (PositionOfEqual >= 0) // If Equal sign exist 
         {
             String SRelayNr = NewComand.substring(PositionOfEqual+1);
-            uint8_t FRelayNr = SRelayNr.toFloat();
-            FRelayNr = FRelayNr; //To delete warning
+            uint8_t IRelayNr = SRelayNr.toInt();
+            UARTuCParse.NrOfLastChangedRelay = IRelayNr;
+            TypeOfCommand = PARSING_RELAY_ON;
         }
     }
     //Command to Turn Relay OFF
@@ -65,13 +74,12 @@ void ParseClass::Parse(String * command)
         if (PositionOfEqual >= 0) // If Equal sign exist 
         {
             String SRelayNr = NewComand.substring(PositionOfEqual+1);
-            uint8_t FRelayNr = SRelayNr.toFloat();
-            FRelayNr = FRelayNr; //To delete warning
+            uint8_t IRelayNr = SRelayNr.toInt();
+            UARTuCParse.NrOfLastChangedRelay =  IRelayNr;
+            TypeOfCommand = PARSING_RELAY_OFF;          
         }
     }
-
-
-
+    return TypeOfCommand;
 }
 
 void ParseClass::SendDataToBlynkServer()

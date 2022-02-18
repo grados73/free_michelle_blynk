@@ -44,6 +44,8 @@ bool stringComplete = false;             // whether the string is complete
 // Class with objects and methods to Parse Command from uC
 ParseClass UARTuCParse;
 
+uint8_t LastCommand;
+
 void setup()
 {
   //  Serial Init
@@ -66,7 +68,7 @@ void loop()
   timer.run();
   if (stringComplete) {
     // PARSE COMMAND FUNCTION 
-    UARTuCParse.Parse(WskInputString);
+    LastCommand = UARTuCParse.Parse(WskInputString);
     // clear the string:
     inputString = "";
     stringComplete = false;
