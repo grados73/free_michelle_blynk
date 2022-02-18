@@ -43,8 +43,9 @@ bool stringComplete = false;             // whether the string is complete
 
 // Class with objects and methods to Parse Command from uC
 ParseClass UARTuCParse;
-
+// Variable to hold information about last receive command
 uint8_t LastCommand;
+void SendDataToBlynk(uint8_t CommandID);
 
 void setup()
 {
@@ -69,6 +70,7 @@ void loop()
   if (stringComplete) {
     // PARSE COMMAND FUNCTION 
     LastCommand = UARTuCParse.Parse(WskInputString);
+    SendDataToBlynk(LastCommand);
     // clear the string:
     inputString = "";
     stringComplete = false;
@@ -91,5 +93,67 @@ void serialEvent() {
     if (inChar == '\n') {
       stringComplete = true;
     }
+  }
+}
+
+
+void SendDataToBlynk(uint8_t CommandID)
+{
+  switch (CommandID)
+  {
+    case PARSING_TEMPWEW:
+      Blynk.virtualWrite(V6, UARTuCParse.TempIns);
+      break;
+      
+    case PARSING_TEMPZEW:
+      Blynk.virtualWrite(V7, UARTuCParse.TempOut);
+      break;
+    
+    case PARSING_PRESS:
+      Blynk.virtualWrite(V5, UARTuCParse.Press);
+      break;
+    
+    case PARSING_RELAY_ON:
+      switch (UARTuCParse.NrOfLastChangedRelay)
+      {
+        case 1:
+          Blynk.virtualWrite(V8, 1);
+          break;
+        case 2:
+          Blynk.virtualWrite(V9, 1);
+          break;
+        case 3:
+          Blynk.virtualWrite(V10, 1);
+          break;
+        case 4:
+          Blynk.virtualWrite(V11, 1);
+          break;
+        default:
+          break;
+      }
+      break;
+    
+    case PARSING_RELAY_OFF:
+    switch (UARTuCParse.NrOfLastChangedRelay)
+      {
+        case 1:
+          Blynk.virtualWrite(V8, 0);
+          break;
+        case 2:
+          Blynk.virtualWrite(V9, 0);
+          break;
+        case 3:
+          Blynk.virtualWrite(V10, 0);
+          break;
+        case 4:
+          Blynk.virtualWrite(V11, 0);
+          break;
+        default:
+          break;
+      }
+      break;
+
+    default:
+      break;
   }
 }
