@@ -41,11 +41,63 @@ String inputString = "";                 // a String to hold incoming data
 String * WskInputString = &inputString;  // Pointer on String holding incoming data
 bool stringComplete = false;             // whether the string is complete
 
-// Class with objects and methods to Parse Command from uC
+// Objects with data and methods to Parse Command from uC
 ParseClass UARTuCParse;
 // Variable to hold information about last receive command
 uint8_t LastCommand;
 void SendDataToBlynk(uint8_t CommandID);
+
+// Objects with data and methods to get information about Relay from BLYNK Server
+RelayClass Relay1;
+RelayClass Relay2;
+RelayClass Relay3;
+RelayClass Relay4;
+
+BLYNK_CONNECTED() {
+  //get data stored in virtual pin V0 from server
+  Blynk.syncVirtual(V8);
+  Blynk.syncVirtual(V9);
+  Blynk.syncVirtual(V10);
+  Blynk.syncVirtual(V11);
+
+  #if DEBUGING_MODE
+  Serial.print("RSTATE=");
+  Serial.print(Relay1.State);
+  Serial.print(Relay2.State);
+  Serial.print(Relay3.State);
+  Serial.print(Relay4.State);
+  Serial.print("\n");
+  #endif
+}
+
+BLYNK_WRITE(V8) //Button Widget is writing to pin V8 - Relay1
+{
+  Relay1.State = param.asInt(); 
+  Serial.print("CHRELAY1=");
+  Serial.print(Relay1.State);
+  Serial.print("\n");
+}
+BLYNK_WRITE(V9) //Button Widget is writing to pin V9 - Relay2
+{
+  Relay2.State = param.asInt(); 
+  Serial.print("CHRELAY2=");
+  Serial.print(Relay2.State);
+  Serial.print("\n");
+}
+BLYNK_WRITE(V10) //Button Widget is writing to pin V10 - Relay3
+{
+  Relay3.State = param.asInt(); 
+  Serial.print("CHRELAY3=");
+  Serial.print(Relay3.State);
+  Serial.print("\n");
+}
+BLYNK_WRITE(V11) //Button Widget is writing to pin V11 - Relay4
+{
+  Relay4.State = param.asInt(); 
+  Serial.print("CHRELAY4=");
+  Serial.print(Relay4.State);
+  Serial.print("\n");
+}
 
 void setup()
 {

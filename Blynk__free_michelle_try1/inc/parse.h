@@ -31,3 +31,13 @@ public:
  void SendDataToBlynkServer();
 };
 
+class RelayClass {
+
+public:
+ uint8_t Number;
+ bool State;
+
+ void TurnOn();
+ void TurnOff();
+};
+
