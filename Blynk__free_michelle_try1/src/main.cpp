@@ -31,7 +31,7 @@ WidgetLED led1(V1);
 
 BlynkTimer timer;
 
-#define DEBUGING_MODE 1
+
 
 // Real - Build In BLUE LED Declaration
 #define LED 2

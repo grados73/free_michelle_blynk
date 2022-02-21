@@ -3,6 +3,8 @@
 #include <ESP8266WiFi.h>
 #include <string>
 
+#define DEBUGING_MODE 1
+
 #define PARSING_TEMPWEW 1
 #define PARSING_TEMPZEW 2
 #define PARSING_PRESS 3

@@ -11,6 +11,10 @@ extern ParseClass UARTuCParse;
 uint8_t ParseClass::Parse(String * command)
 {
 
+    #if DEBUGING_MODE
+    Serial.print("CMDRCV\n");
+    #endif
+
     uint8_t TypeOfCommand = 0;
     String NewComand = *command;
 
@@ -18,6 +22,10 @@ uint8_t ParseClass::Parse(String * command)
     //TEMPINS=25.5
     if(NewComand.indexOf("TEMPINS") >= 0) // TODO! Check "TEMP" or 'TEMP'
     {
+        #if DEBUGING_MODE
+        Serial.print("TEMPINSCMDRCV\n");
+        #endif
+
         uint8_t PositionOfEqual = NewComand.indexOf("=");
         if (PositionOfEqual >= 0) // If Equal sign exist 
         {
@@ -31,6 +39,10 @@ uint8_t ParseClass::Parse(String * command)
     //TEMPINS=25.5
     else if(NewComand.indexOf("TEMPOUT") >= 0) 
     {
+        #if DEBUGING_MODE
+        Serial.print("TEMPOUTCMDRCV\n");
+        #endif
+
         uint8_t PositionOfEqual = NewComand.indexOf("=");
         if (PositionOfEqual >= 0) // If Equal sign exist 
         {
@@ -44,6 +56,10 @@ uint8_t ParseClass::Parse(String * command)
     //PRES=1014.5
     else if(NewComand.indexOf("PRES") >= 0)
     {
+        #if DEBUGING_MODE
+        Serial.print("PRESCMDRCV\n");
+        #endif
+
         uint8_t PositionOfEqual = NewComand.indexOf("=");
         if (PositionOfEqual >= 0) // If Equal sign exist 
         {
@@ -57,6 +73,10 @@ uint8_t ParseClass::Parse(String * command)
     //RELAYON=1
     else if(NewComand.indexOf("RELAYON") >= 0)
     {
+        #if DEBUGING_MODE
+        Serial.print("RONCMDRCV\n");
+        #endif
+
         uint8_t PositionOfEqual = NewComand.indexOf("=");
         if (PositionOfEqual >= 0) // If Equal sign exist 
         {
@@ -70,6 +90,10 @@ uint8_t ParseClass::Parse(String * command)
     //RELAYOFF=1
     else if(NewComand.indexOf("RELAYOFF") >= 0)
     {
+        #if DEBUGING_MODE
+        Serial.print("ROFFCMDRCV\n");
+        #endif
+
         uint8_t PositionOfEqual = NewComand.indexOf("=");
         if (PositionOfEqual >= 0) // If Equal sign exist 
         {
